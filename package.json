@@ -1,0 +1,23 @@
+{
+  "name": "roleproof",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node dev.js",
+    "mock": "node --env-file=test/mock.env dev.js",
+    "test": "node --test",
+    "vendor": "node scripts/vendor.mjs",
+    "setkey": "node scripts/set-key.mjs"
+  },
+  "dependencies": {
+    "@google/genai": "^3.0.0"
+  },
+  "devDependencies": {
+    "mammoth": "^1.13.0",
+    "pdfjs-dist": "^6.5.438"
+  }
+}

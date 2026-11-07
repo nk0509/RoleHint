@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Check your CV · Roleproof</title>
+<meta name="description" content="Upload your CV and a target role. Get a recruiter-style fit score, gap audit, bullet rewrites and pivot roles.">
+<meta property="og:title" content="Check your CV · Roleproof">
+<meta property="og:description" content="Upload your CV and a target role. Get a recruiter-style fit score, gap audit, bullet rewrites and pivot roles.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%230b5d4e%22%2F%3E%3Cpath%20d%3D%22M9%2017l5%205%209-11%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in">
+    <a class="logo" href="/"><span>Role</span>proof</a>
+    <div class="grow"></div>
+    <button class="btn" id="dlBtn" type="button" title="Download report as Markdown" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg><span class="lbl">Report</span></button>
+    
+  </div>
+</header>
+
+<main class="desk">
+  <!-- INTAKE -->
+  <aside class="intake">
+    <form class="panel" id="intake" novalidate>
+      <h1 class="lede">Check your CV against the job you want</h1>
+      <div class="meta"><span class="eyebrow">Phase 1 · Intake</span><span id="quota"></span></div>
+      <label class="f" for="target">Target role or job title
+        <input type="text" id="target" placeholder="e.g. Senior Data Engineer" autocomplete="off">
+      </label>
+      <div class="row2">
+        <label class="f" for="level">Seniority
+          <select id="level">
+            <option value="">Infer from CV</option><option>Entry / Graduate</option><option>Mid-level</option><option>Senior</option><option>Lead / Staff</option><option>Manager</option><option>Director / Executive</option>
+          </select>
+        </label>
+        <label class="f" for="loc">Job market
+          <input type="text" id="loc" placeholder="e.g. Bengaluru, Remote" autocomplete="off">
+        </label>
+      </div>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Upload CV file">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M14 3v6h6M12 18v-6m0 0l-3 3m3-3l3 3"/></svg>
+        <div><strong>Drop a CV</strong> or click to upload<br><span style="font-size:.78rem;color:var(--ink-3)">PDF, Word or text file</span></div>
+        <input type="file" id="file" accept=".pdf,.docx,.txt,.md,.rtf,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+      </div>
+      <label class="f" for="cv">CV text
+        <textarea id="cv" placeholder="Paste the full CV here, or upload a file above."></textarea>
+      </label>
+      <div class="meta"><span id="cvMeta">0 words</span><button type="button" class="copy" id="clearCv">Clear</button></div>
+      <details class="jd" id="jdBox">
+        <summary>Add a job description (optional, sharpens the score)</summary>
+        <textarea id="jd" placeholder="Paste the job posting you are targeting."></textarea>
+      </details>
+      <div class="ctrl">
+        <span style="font-size:.86rem;font-weight:500;color:var(--ink-2)">Review strictness</span>
+        <div class="seg" id="strict" role="group" aria-label="Review strictness">
+          <button type="button" data-v="supportive" aria-pressed="false">Supportive</button>
+          <button type="button" data-v="balanced" aria-pressed="true">Balanced</button>
+          <button type="button" data-v="harsh" aria-pressed="false">Hiring-bar harsh</button>
+        </div>
+      </div>
+      <label class="consent" for="consent"><input type="checkbox" id="consent"><span>I agree that this CV text will be sent to Google, our AI provider, to create the report. We don't store it. <a href="/privacy.html">Privacy policy</a></span></label>
+      <div id="captcha"></div>
+      <button class="btn primary run" id="runBtn" type="submit">Audit this CV</button>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+    </form>
+  </aside>
+
+  <!-- REPORT -->
+  <section class="report" id="report" aria-live="polite"></section>
+</main>
+
+<footer class="foot"><span>Reports are AI-generated guidance. Check every suggestion before you use it.</span><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></footer>
+
+<script src="/app.js"></script>
+</body>
+</html>

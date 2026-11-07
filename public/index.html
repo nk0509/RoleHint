@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Roleproof</title>
+<meta name="description" content="Upload your CV and the job you want. Roleproof shows how well you fit, what's missing, and exactly what to change.">
+<meta property="og:title" content="Roleproof">
+<meta property="og:description" content="Upload your CV and the job you want. Roleproof shows how well you fit, what's missing, and exactly what to change.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%230b5d4e%22%2F%3E%3Cpath%20d%3D%22M9%2017l5%205%209-11%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body class="home">
+
+<header class="wrap top">
+  <a class="logo" href="/"><span>Role</span>proof</a>
+  <nav class="top-links" aria-label="Page sections">
+    <a href="#solutions">What you get</a>
+    <a href="#how">How it works</a>
+    <a href="#privacy">Privacy</a>
+  </nav>
+  <a class="cta small" href="/audit">Check my CV</a>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div class="hero-copy">
+      <h1>Know if your CV gets you <span class="swipe">shortlisted</span> before you apply.</h1>
+      <p class="hero-lede">Roleproof reads your CV against the job you want, the way a recruiter would. You see how well you fit, what's missing, and exactly what to change.</p>
+      <div class="hero-actions">
+        <a class="cta" href="/audit">Upload your CV and test it</a>
+        <a class="quiet" href="#solutions">See what you get</a>
+      </div>
+      <p class="hero-note">PDF or Word. No account needed. Report in under a minute.</p>
+    </div>
+
+    <figure class="sheet" aria-label="Example of a marked-up CV with a fit score of 58">
+      <span class="stamp">Example</span>
+      <header class="sheet-head">
+        <div>
+          <strong>Arjun Mehta</strong>
+          <span>Backend Engineer, 5 years</span>
+        </div>
+        <div class="sheet-score" role="img" aria-label="Fit score 58 out of 100">
+          <svg viewBox="0 0 200 112" aria-hidden="true">
+            <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="var(--wash)" stroke-width="18" stroke-linecap="round"/>
+            <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="var(--warn)" stroke-width="18" stroke-linecap="round" stroke-dasharray="145.8 251.3"/>
+          </svg>
+          <b>58</b>
+        </div>
+      </header>
+      <p class="sheet-target">Target role: Senior Machine Learning Engineer</p>
+      <p class="sheet-old">Worked on reconciliation service for UPI payments.</p>
+      <p class="sheet-new">Owned the UPI reconciliation service processing ~4M transactions a day, cutting mismatch time by <mark>[X%]</mark>.</p>
+      <p class="sheet-pen"><b>Missing:</b> PyTorch, MLflow, model monitoring</p>
+      <p class="sheet-pivot"><span>Better fit today</span> Senior Data Engineer <b>88%</b></p>
+    </figure>
+  </section>
+
+  <section class="wrap solutions" id="solutions">
+    <div class="section-head">
+      <h2>The problems it solves</h2>
+      <p>Most job seekers never find out why their CV didn't work. Roleproof gives you the feedback a recruiter would keep to themselves.</p>
+    </div>
+    <ul class="ledger">
+      <li>
+        <p class="problem">"I don't know if I'm good enough for this job."</p>
+        <div><h3>A fit score out of 100</h3><p>Scored on your skills, seniority, domain and measurable results, with a blunt verdict you can act on.</p></div>
+      </li>
+      <li>
+        <p class="problem">"I keep applying and hearing nothing back."</p>
+        <div><h3>Your gaps, ranked</h3><p>See what's holding you back, how serious each gap is, and a concrete way to fix it.</p></div>
+      </li>
+      <li>
+        <p class="problem">"My CV doesn't sound impressive."</p>
+        <div><h3>Rewrites of your own bullet points</h3><p>Stronger wording built from what you've done. Where a number is missing, you get a blank to fill in with the real figure.</p></div>
+      </li>
+      <li>
+        <p class="problem">"Software might be rejecting my CV."</p>
+        <div><h3>Missing keywords</h3><p>The terms this role expects that your CV doesn't mention yet.</p></div>
+      </li>
+      <li>
+        <p class="problem">"I don't know where to apply."</p>
+        <div><h3>Roles to target</h3><p>Five typical openings that suit your profile, each with a fit score and one-click job searches on LinkedIn, Indeed, Naukri and more.</p></div>
+      </li>
+      <li>
+        <p class="problem">"What if I'm aiming at the wrong role?"</p>
+        <div><h3>Pivot roles</h3><p>Five nearby roles you could apply for now, with the headline and search terms to use for each.</p></div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="how" id="how">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><h3>Add your CV</h3><p>Upload a PDF or Word file, or paste the text.</p></li>
+        <li><h3>Name the job you want</h3><p>Type a job title. Paste a job description for a sharper score.</p></li>
+        <li><h3>Get your report</h3><p>Read it, ask follow-up questions, and download a copy.</p></li>
+      </ol>
+      <a class="cta on-dark" href="/audit">Try it with your CV</a>
+    </div>
+  </section>
+
+  <section class="wrap privacy" id="privacy">
+    <h2>Your CV stays private</h2>
+    <ul class="facts-row">
+      <li><h3>Not stored</h3><p>We don't save your CV or report. Close the tab and they're gone unless you download a copy.</p></li>
+      <li><h3>Your choice</h3><p>You agree before anything is sent. Your CV text goes to Google's AI to create the report.</p></li>
+      <li><h3>Honest about limits</h3><p>Reports are AI guidance. Check every suggestion, and only claim what's true.</p></li>
+    </ul>
+  </section>
+
+  <section class="wrap final">
+    <h2>See your CV the way a recruiter does.</h2>
+    <a class="cta" href="/audit">Upload your CV and test it</a>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>© Roleproof. Reports are AI-generated guidance.</span>
+  <a href="/privacy.html">Privacy</a>
+  <a href="/terms.html">Terms</a>
+</footer>
+
+</body>
+</html>
