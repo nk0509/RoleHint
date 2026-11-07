@@ -46,8 +46,8 @@ If `public/vendor` is ever missing, run `npm run vendor` to restore the PDF and 
 3. **Limits:** check your billing tier's rate limits against your daily limits, and consider a spend cap on the project.
 4. **GitHub:** create a private repository and push this folder. `.gitignore` keeps `.env.local` out.
 5. **Vercel:** sign in with GitHub, click Add New, then Project, and import the repository. Keep the default settings.
-6. **Redis:** create a free Redis database at https://upstash.com. The live site refuses all audits until this is connected, which stops a missing limit from costing you money.
-7. **Settings:** in Vercel under Settings, then Environment Variables, add `GEMINI_API_KEY`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` and the four limit numbers from `.env.example`. Then redeploy.
+6. **Redis:** in Vercel, open the project's Storage tab, create a free Upstash for Redis database and connect it to the project. This adds `KV_REST_API_URL` and `KV_REST_API_TOKEN` for you. The live site refuses all audits until this is connected, which stops a missing limit from costing you money.
+7. **Settings:** in Vercel under Settings, then Environment Variables, add `GEMINI_API_KEY`. The four limit numbers from `.env.example` are optional, and the same values are used if you leave them out. Redeploy after any change here.
 8. **Bot check (recommended):** create a free Cloudflare Turnstile widget and add `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`.
 9. **Legal pages:** replace every [bracketed] item in `public/privacy.html` and `public/terms.html`, remove the draft note, and have them reviewed.
 10. **Domain:** buy your domain and add it in Vercel under Settings, then Domains.
