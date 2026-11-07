@@ -49,7 +49,7 @@ If `public/vendor` is ever missing, run `npm run vendor` to restore the PDF and 
 6. **Redis:** in Vercel, open the project's Storage tab, create a free Upstash for Redis database and connect it to the project. This adds `KV_REST_API_URL` and `KV_REST_API_TOKEN` for you. The live site refuses all audits until this is connected, which stops a missing limit from costing you money.
 7. **Settings:** in Vercel under Settings, then Environment Variables, add `GEMINI_API_KEY`. The four limit numbers from `.env.example` are optional, and the same values are used if you leave them out. Redeploy after any change here.
 8. **Bot check (recommended):** create a free Cloudflare Turnstile widget and add `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`.
-9. **Legal pages:** replace every [bracketed] item in `public/privacy.html` and `public/terms.html`, remove the draft note, and have them reviewed.
+9. **Legal pages:** read `public/privacy.html` and `public/terms.html`, and have them reviewed.
 10. **Domain:** buy your domain and add it in Vercel under Settings, then Domains.
 11. **Final check:** run a full audit on the live site, on a phone too, and check that the limit message appears.
 

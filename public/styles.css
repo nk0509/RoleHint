@@ -186,7 +186,6 @@ td .t{ font-weight: 600; } td .c{ color: var(--ink-3); font-size: .8rem; }
 .legal{max-width:68ch;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .legal h1{font-size:2rem;margin-bottom:6px}
 .legal h2{font-size:1.15rem;margin-top:28px}
-.legal .draft{background:var(--warn-wash);padding:10px 14px;border-radius:var(--radius-sm)}
 
 /* Front page */
 html{ scroll-behavior: smooth; }
