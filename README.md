@@ -1,12 +1,13 @@
 # Roleproof
 
-A public website that audits any CV against a target role: fit score, gaps, bullet rewrites, market roles and pivot roles. Roleproof is a working name. To change it, find and replace it in `public/`.
+A public website that audits any CV against a target role, with a fit score, gaps, bullet rewrites, market roles and pivot roles, and writes a cover letter for the job. Roleproof is a working name. To change it, find and replace it in `public/`.
 
 ## How it fits together
 
-- `public/` is the website. `index.html` is the front page, `audit.html` is the CV tool (at `/audit`), `app.js` runs the tool, `styles.css` holds the theme and all styling, and `privacy.html` and `terms.html` are the legal pages.
-- `api/` holds the server functions. `audit.js` runs an audit, `chat.js` answers follow-ups, and `config.js` tells the page its settings.
-- `lib/` holds shared server code. `gemini.js` connects to Google's Gemini API. Edit the audit instructions in `lib/prompts.js`.
+- `public/` is the website. `index.html` is the front page. `home.js` runs its upload button, and `tricks.js` runs its playful parts: the changing word, the button that runs away, the x-ray CV, the feedback switch and the tab title. `fx.js` runs the moving smoke and the blur-in on scroll. `audit.html` is the CV tool (at `/audit`), and `app.js` runs it. `cover-letter.html` is the letter tool, and `letter.js` runs it. `certifications.html` tells people if a certificate is worth it for a job, and `certs.js` runs it. `read-cv.js` reads CV files and `api-client.js` calls the server for these pages. `mechanics.html` explains the product, `contact.html` asks people to email you, and `privacy.html` and `terms.html` are the legal pages. These last three show your email address, so change it in all of them. `styles.css` holds the theme and all styling. To recolour the site, change `--pop` at the top, which also recolours the smoke, then change the same colour in `favicon.svg`.
+- The header and footer are written out in each HTML page, so change them on every page.
+- `api/` holds the server functions. `audit.js` runs an audit, `cover-letter.js` writes a letter, `certifications.js` makes a certificate plan, `chat.js` answers follow-ups, and `config.js` tells the page its settings.
+- `lib/` holds shared server code. `gemini.js` connects to Google's Gemini API. Edit the audit, cover letter and certificate instructions in `lib/prompts.js`.
 - Your API key stays on the server. Never put it in `public/`.
 
 ## Try it on your computer
@@ -47,15 +48,19 @@ If `public/vendor` is ever missing, run `npm run vendor` to restore the PDF and 
 4. **GitHub:** create a private repository and push this folder. `.gitignore` keeps `.env.local` out.
 5. **Vercel:** sign in with GitHub, click Add New, then Project, and import the repository. Keep the default settings.
 6. **Redis:** in Vercel, open the project's Storage tab, create a free Upstash for Redis database and connect it to the project. This adds `KV_REST_API_URL` and `KV_REST_API_TOKEN` for you. The live site refuses all audits until this is connected, which stops a missing limit from costing you money.
-7. **Settings:** in Vercel under Settings, then Environment Variables, add `GEMINI_API_KEY`. The four limit numbers from `.env.example` are optional, and the same values are used if you leave them out. Redeploy after any change here.
+7. **Settings:** in Vercel under Settings, then Environment Variables, add `GEMINI_API_KEY`. The limit numbers from `.env.example` are optional, and the same values are used if you leave them out. Redeploy after any change here.
 8. **Bot check (recommended):** create a free Cloudflare Turnstile widget and add `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`.
 9. **Legal pages:** read `public/privacy.html` and `public/terms.html`, and have them reviewed.
 10. **Domain:** buy your domain and add it in Vercel under Settings, then Domains.
 11. **Final check:** run a full audit on the live site, on a phone too, and check that the limit message appears.
 
+## Keeping the certificate list current
+
+`lib/certifications.js` is a hand-checked list. The AI can only recommend certificates from it, and the cost, validity and links people see come from that file. About every three months, open each official link, fix anything that changed, move any closed certificate to `RETIRED`, and set `CHECKED` to the current month. The page shows that date to visitors.
+
 ## Controlling cost
 
-`AUDITS_PER_DAY_TOTAL` and `CHATS_PER_DAY_TOTAL` cap daily use across all visitors. Set `GEMINI_MODEL=gemini-3.1-flash-lite` in Vercel to run on a cheaper model, and compare report quality before you keep it.
+`AUDITS_PER_DAY_TOTAL`, `LETTERS_PER_DAY_TOTAL`, `CERT_CHECKS_PER_DAY_TOTAL` and `CHATS_PER_DAY_TOTAL` cap daily use across all visitors. Set `GEMINI_MODEL=gemini-3.1-flash-lite` in Vercel to run on a cheaper model, and compare report quality before you keep it.
 
 Vercel's time limit for each request depends on your plan. `vercel.json` asks for up to 300 seconds.
 

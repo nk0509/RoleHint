@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Certifications · Roleproof</title>
+<meta name="description" content="Find out which certificates would help with the job you want, using only current ones checked by hand.">
+<meta property="og:title" content="Certifications · Roleproof">
+<meta property="og:description" content="Find out which certificates would help with the job you want, using only current ones checked by hand.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="/"><span>Role</span>proof</a>
+    <nav class="top-links" aria-label="Main">
+      <a href="/audit">Try</a>
+      <a href="/cover-letter">Cover Letter</a>
+      <a href="/mechanics">Mechanics</a>
+      <a href="/certifications" aria-current="page" aria-label="Certifications">Cert<span class="long">ification</span>s</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+    <div class="top-end">
+      <a class="btn" href="/contact">Contact Me</a>
+    </div>
+  </div>
+</header>
+
+<main class="desk">
+  <aside class="intake">
+    <form class="panel" id="certForm" novalidate>
+      <h1 class="lede">should you get certified? <em>let's find out.</em></h1>
+      <div class="meta"><span class="eyebrow">Certificate check</span><span id="quota"></span></div>
+      <label class="f" for="target">Job title
+        <input type="text" id="target" placeholder="e.g. Machine Learning Engineer" autocomplete="off">
+      </label>
+      <label class="f" for="jd">Job description (paste it for the best answer)
+        <textarea id="jd" placeholder="Paste the job posting. We'll show you exactly where it asks for a certificate."></textarea>
+      </label>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Upload CV file">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M14 3v6h6M12 18v-6m0 0l-3 3m3-3l3 3"/></svg>
+        <div><strong>Drop a CV</strong> or click to upload<br><span style="font-size:.78rem;color:var(--ink-3)">PDF, Word or text file</span></div>
+        <input type="file" id="file" accept=".pdf,.docx,.txt,.md,.rtf,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+      </div>
+      <label class="f" for="cv">CV text
+        <textarea id="cv" placeholder="Paste the full CV here, or upload a file above."></textarea>
+      </label>
+      <div class="meta"><span id="cvMeta">0 words</span><button type="button" class="copy" id="clearCv">Clear</button></div>
+      <label class="consent" for="consent"><input type="checkbox" id="consent"><span>I agree that this CV text will be sent to Google, our AI provider, to create this plan. We don't store it. <a href="/privacy">Privacy policy</a></span></label>
+      <div id="captcha"></div>
+      <button class="btn primary run" id="runBtn" type="submit">Check my options</button>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+    </form>
+    <p class="cert-trust" id="trust" hidden></p>
+  </aside>
+
+  <section class="report">
+    <div class="banner" id="exampleBanner"><b>Example plan</b><span>This is a sample for a fictional person. Add your CV to get your own.</span></div>
+    <div class="plan" id="plan"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>© 2026 Roleproof. Plans are AI generated. Check the official page before you pay for an exam.</span>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+</footer>
+
+<script src="/read-cv.js"></script>
+<script src="/api-client.js"></script>
+<script src="/certs.js"></script>
+</body>
+</html>

@@ -1,7 +1,6 @@
 (() => {
 "use strict";
 const $ = s => document.querySelector(s);
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 /* ---------- Intake ---------- */
 const cvEl = $("#cv"), statusEl = $("#status");
 let strict = "balanced";
@@ -9,117 +8,21 @@ $("#strict").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return; strict = b.dataset.v;
   $("#strict").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
 });
-function updateMeta(){
-  const w = (cvEl.value.trim().match(/\S+/g) || []).length;
-  $("#cvMeta").textContent = `${w.toLocaleString()} words${w && w < 120 ? " · looks short for a CV" : ""}`;
-}
-cvEl.addEventListener("input", updateMeta);
-$("#clearCv").onclick = () => { cvEl.value = ""; updateMeta(); cvEl.focus(); };
-updateMeta();
-
 function setStatus(msg, err){ statusEl.className = "status" + (err ? " err" : ""); statusEl.innerHTML = msg; }
 
-/* file reading */
-const fileIn = $("#file"), drop = $("#drop");
-drop.onclick = () => fileIn.click();
-drop.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileIn.click(); } };
-fileIn.onchange = () => fileIn.files[0] && readFile(fileIn.files[0]);
-["dragenter","dragover"].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add("over"); }));
-["dragleave","drop"].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove("over"); }));
-drop.addEventListener("drop", e => { const f = e.dataTransfer.files[0]; if (f) readFile(f); });
+const cvField = setupCvField(setStatus, "Check the text, then run the audit.");
 
-function loadScript(src){
-  return new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("Could not load " + src)); document.head.append(s); });
-}
-async function readFile(f){
-  setStatus(`<span class="spinner"></span> Reading ${esc(f.name)}…`);
-  try{
-    const name = f.name.toLowerCase(); let text = "";
-    if (name.endsWith(".pdf") || f.type === "application/pdf"){
-      const pdfjsLib = await import("/vendor/pdf.min.mjs");
-      pdfjsLib.GlobalWorkerOptions.workerSrc = "/vendor/pdf.worker.min.mjs";
-      const pdf = await pdfjsLib.getDocument({ data: await f.arrayBuffer(), isEvalSupported: false }).promise;
-      for (let i = 1; i <= pdf.numPages; i++){
-        const c = await (await pdf.getPage(i)).getTextContent();
-        let line = "", lastY = null;
-        for (const it of c.items){
-          const y = it.transform ? it.transform[5] : null;
-          if (lastY !== null && y !== null && Math.abs(y - lastY) > 2){ text += line.trimEnd() + "\n"; line = ""; }
-          line += it.str + (it.hasEOL ? "\n" : " "); lastY = y;
-        }
-        text += line + "\n\n";
-      }
-    } else if (name.endsWith(".docx")){
-      if (!window.mammoth) await loadScript("/vendor/mammoth.browser.min.js");
-      text = (await mammoth.extractRawText({ arrayBuffer: await f.arrayBuffer() })).value;
-    } else if (name.endsWith(".doc")){
-      throw new Error("Old .doc files can't be read here. Save it as .docx or PDF and upload again.");
-    } else {
-      text = await f.text();
-    }
-    text = text.replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
-    if (text.length < 80) throw new Error("Very little text came out of that file. If it's a scanned PDF, paste the text instead.");
-    cvEl.value = text; updateMeta();
-    setStatus(`Loaded ${esc(f.name)}. Check the text, then run the audit.`);
-  }catch(err){ setStatus(esc(err.message || "That file couldn't be read."), true); }
-  fileIn.value = "";
+/* A CV chosen on the front page arrives here. */
+const handoff = takeCvHandoff();
+if (handoff?.text){
+  cvField.fill(handoff.text);
+  setStatus(`Loaded ${esc(handoff.name)}. Enter the job you want, then run the audit.`);
+  $("#target").focus();
 }
 
 /* ---------- Server ---------- */
-let current = null, currentInputs = null, ctl = null, chatTurns = [], captchaToken = null, captchaId = null;
-
-const ERR = {
-  forbidden: "This request was blocked. Reload the page and try again.",
-  too_long: "The CV or job description is too long. Trim it and try again. The limits are 40,000 and 12,000 characters.",
-  too_short: "That CV looks too short to review. Paste the full text.",
-  consent: "Tick the box to agree before running the audit.",
-  captcha: "The bot check didn't complete. Wait a moment and try again.",
-  limit_visitor: "You've used today's free audits. Come back tomorrow.",
-  limit_site: "Today's free audits have all been used. Come back tomorrow.",
-  busy: "The service is busy right now. Wait a minute and try again.",
-  unavailable: "The service is temporarily unavailable. Please try again later.",
-  refused: "This text couldn't be reviewed. Check that it's a CV and try again.",
-  truncated: "The report came back incomplete. Run the audit again.",
-};
-const errMsg = code => ERR[code] || "The connection dropped before the report finished. Run it again.";
-
-// Calls an API route and hands each streamed event to onEvent. Rejects with {code}.
-async function callApi(path, body, onEvent, signal){
-  const res = await fetch(path, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body), signal });
-  if (!res.ok || !res.body){
-    const err = await res.json().catch(() => ({}));
-    throw { code: err.code || "upstream" };
-  }
-  const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
-  let pending = "", finished = false;
-  const handle = line => {
-    if (!line.trim()) return;
-    const event = JSON.parse(line);
-    if (event.type === "error") throw { code: event.code };
-    if (event.type === "result" || event.type === "done") finished = true;
-    onEvent(event);
-  };
-  for (;;){
-    const { value, done } = await reader.read();
-    if (done) break;
-    const lines = (pending + value).split("\n");
-    pending = lines.pop();
-    lines.forEach(handle);
-  }
-  handle(pending);
-  if (!finished) throw { code: "upstream" };
-}
-
-fetch("/api/config").then(r => r.json()).then(config => {
-  if (config.auditsPerDay) $("#quota").textContent = `${config.auditsPerDay} free audits a day`;
-  if (!config.turnstileSiteKey) return;
-  const script = document.createElement("script");
-  script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-  script.onload = () => {
-    captchaId = turnstile.render("#captcha", { sitekey: config.turnstileSiteKey, callback: t => { captchaToken = t; }, "expired-callback": () => { captchaToken = null; } });
-  };
-  document.head.append(script);
-}).catch(() => {});
+let current = null, currentInputs = null, ctl = null, chatTurns = [];
+const bot = startBotCheck(config => { if (config.auditsPerDay) $("#quota").textContent = `${config.auditsPerDay} free audits a day`; });
 
 $("#intake").addEventListener("submit", async e => {
   e.preventDefault();
@@ -128,14 +31,14 @@ $("#intake").addEventListener("submit", async e => {
   if (!inp.cv){ setStatus("Paste a CV or upload a file first.", true); cvEl.focus(); return; }
   if (!inp.target){ setStatus("Enter the role you're targeting.", true); $("#target").focus(); return; }
   if (!$("#consent").checked){ setStatus(errMsg("consent"), true); $("#consent").focus(); return; }
-  if (captchaId !== null && !captchaToken){ setStatus(errMsg("captcha"), true); return; }
+  if (bot.waiting){ setStatus(errMsg("captcha"), true); return; }
   const btn = $("#runBtn");
   ctl = new AbortController();
   btn.textContent = "Stop";
   setStatus(`<span class="spinner"></span> Reading the CV like a recruiter would. This usually takes 30–90 seconds.`);
   try{
     let report = null, remaining = null;
-    await callApi("/api/audit", { ...inp, consent: true, captcha: captchaToken }, ev => {
+    await callApi("/api/audit", { ...inp, consent: true, captcha: bot.token }, ev => {
       if (ev.type === "progress") setStatus(`<span class="spinner"></span> Writing the report… ${ev.chars.toLocaleString()} characters so far`);
       if (ev.type === "result"){ report = ev.data; remaining = ev.remaining; }
     }, ctl.signal);
@@ -147,8 +50,8 @@ $("#intake").addEventListener("submit", async e => {
     if (err?.name === "AbortError") setStatus("Stopped.");
     else setStatus(esc(errMsg(err?.code)), true);
   }finally{
-    ctl = null; btn.textContent = "Audit this CV";
-    if (captchaId !== null){ captchaToken = null; turnstile.reset(captchaId); }
+    ctl = null; btn.textContent = "Check my CV";
+    bot.reset();
   }
 });
 
@@ -248,7 +151,20 @@ function render(d, inp, isExample){
     <form class="chatform" id="chatform"><input type="text" id="chatIn" placeholder="Ask about this CV or role…" autocomplete="off" ${isExample ? "disabled" : ""}><button class="btn primary" type="submit" ${isExample ? "disabled" : ""}>Ask</button></form></div>
   </article>`);
 
+  html.push(`<article class="sec"><div class="sec-h"><span class="ph">NEXT STEP</span><h2>Cover letter</h2><span class="aside">Built from your CV</span></div>
+    <p class="note">Turn this CV into a cover letter for “${esc(inp.target)}”. You choose the tone and can edit every word.</p>
+    <div><a class="cta" id="toLetter" href="/cover-letter">Write a cover letter</a></div>
+  </article>`);
+  html.push(`<article class="sec"><div class="sec-h"><span class="ph">NEXT STEP</span><h2>Certifications</h2><span class="aside">Built from your CV</span></div>
+    <p class="note">Not sure if a certificate would help with “${esc(inp.target)}”? See which ones are worth it, based on your CV.</p>
+    <div><a class="cta" id="toCerts" href="/certifications">Check my options</a></div></article>`);
+
   $("#report").innerHTML = html.join("");
+  if (!isExample){
+    const handOver = () => handOffCv({ name: "your CV", text: currentInputs.cv, target: currentInputs.target, jobDescription: currentInputs.jobDescription });
+    $("#toLetter").onclick = handOver;
+    $("#toCerts").onclick = handOver;
+  }
   $("#dlBtn").hidden = isExample;
   const cf = $("#chatform"); if (cf) cf.addEventListener("submit", askChat);
 }

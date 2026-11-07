@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cover letter · Roleproof</title>
+<meta name="description" content="Write a cover letter for the job you want, built from your own CV and the job description.">
+<meta property="og:title" content="Cover letter · Roleproof">
+<meta property="og:description" content="Write a cover letter for the job you want, built from your own CV and the job description.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="/"><span>Role</span>proof</a>
+    <nav class="top-links" aria-label="Main">
+      <a href="/audit">Try</a>
+      <a href="/cover-letter" aria-current="page">Cover Letter</a>
+      <a href="/mechanics">Mechanics</a>
+      <a href="/certifications" aria-label="Certifications">Cert<span class="long">ification</span>s</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+    <div class="top-end">
+      <a class="btn" href="/contact">Contact Me</a>
+    </div>
+  </div>
+</header>
+
+<main class="desk">
+  <aside class="intake">
+    <form class="panel" id="letterForm" novalidate>
+      <h1 class="lede">nobody likes writing these. <em>let's get it over with.</em></h1>
+      <div class="meta"><span class="eyebrow">Cover letter</span><span id="quota"></span></div>
+      <div class="row2">
+        <label class="f" for="target">Job title
+          <input type="text" id="target" placeholder="e.g. Senior Data Engineer" autocomplete="off">
+        </label>
+        <label class="f" for="company">Company (optional)
+          <input type="text" id="company" placeholder="e.g. Acme Ltd" autocomplete="off">
+        </label>
+      </div>
+      <label class="f" for="jd">Job description (optional, makes it sharper)
+        <textarea id="jd" placeholder="Paste the job posting you're applying for."></textarea>
+      </label>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Upload CV file">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M14 3v6h6M12 18v-6m0 0l-3 3m3-3l3 3"/></svg>
+        <div><strong>Drop a CV</strong> or click to upload<br><span style="font-size:.78rem;color:var(--ink-3)">PDF, Word or text file</span></div>
+        <input type="file" id="file" accept=".pdf,.docx,.txt,.md,.rtf,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+      </div>
+      <label class="f" for="cv">CV text
+        <textarea id="cv" placeholder="Paste the full CV here, or upload a file above."></textarea>
+      </label>
+      <div class="meta"><span id="cvMeta">0 words</span><button type="button" class="copy" id="clearCv">Clear</button></div>
+      <div class="ctrl">
+        <span style="font-size:.86rem;font-weight:500;color:var(--ink-2)">Tone</span>
+        <div class="seg" id="tone" role="group" aria-label="Tone">
+          <button type="button" data-v="formal" aria-pressed="true">Formal</button>
+          <button type="button" data-v="friendly" aria-pressed="false">Friendly</button>
+          <button type="button" data-v="confident" aria-pressed="false">Confident</button>
+        </div>
+      </div>
+      <label class="consent" for="consent"><input type="checkbox" id="consent"><span>I agree that this CV text will be sent to Google, our AI provider, to write the letter. We don't store it. <a href="/privacy">Privacy policy</a></span></label>
+      <div id="captcha"></div>
+      <button class="btn primary run" id="runBtn" type="submit">Write my cover letter</button>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+    </form>
+  </aside>
+
+  <section class="report">
+    <div class="banner" id="exampleBanner"><b>Example letter</b><span>This is a sample for a fictional person. Add your CV to write your own.</span></div>
+    <article class="sec" id="letterCard">
+      <div class="sec-h"><h2>Your letter</h2><span class="aside">Fill in anything in [brackets] before you send it</span></div>
+      <textarea id="letter" aria-label="Your cover letter" placeholder="Your letter will appear here."></textarea>
+      <div class="letter-actions" id="letterActions" hidden>
+        <button class="btn primary" id="copyLetter" type="button">Copy</button>
+        <button class="btn" id="saveLetter" type="button">Save as PDF</button>
+        <span class="blanks" id="blanks"></span>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>© 2026 Roleproof. Reports are AI generated. Read every letter before you send it.</span>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+</footer>
+
+<div class="print-only" id="letterPrint"></div>
+
+<script src="/read-cv.js"></script>
+<script src="/api-client.js"></script>
+<script src="/letter.js"></script>
+</body>
+</html>

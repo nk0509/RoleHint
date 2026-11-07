@@ -3,127 +3,144 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Roleproof</title>
-<meta name="description" content="Upload your CV and the job you want. Roleproof shows how well you fit, what's missing, and exactly what to change.">
-<meta property="og:title" content="Roleproof">
-<meta property="og:description" content="Upload your CV and the job you want. Roleproof shows how well you fit, what's missing, and exactly what to change.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%230b5d4e%22%2F%3E%3Cpath%20d%3D%22M9%2017l5%205%209-11%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E">
+<title>Roleproof · find out why your CV got ghosted</title>
+<meta name="description" content="Check your CV against the job you want, then write a cover letter for it. Roleproof shows how well you fit and exactly what to change.">
+<meta property="og:title" content="Roleproof · find out why your CV got ghosted">
+<meta property="og:description" content="Check your CV against the job you want, then write a cover letter for it. Roleproof shows how well you fit and exactly what to change.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/styles.css">
 </head>
-<body class="home">
+<body>
+<canvas class="smoke" aria-hidden="true"></canvas>
 
-<header class="wrap top">
-  <a class="logo" href="/"><span>Role</span>proof</a>
-  <nav class="top-links" aria-label="Page sections">
-    <a href="#solutions">What you get</a>
-    <a href="#how">How it works</a>
-    <a href="#privacy">Privacy</a>
-  </nav>
-  <a class="cta small" href="/audit">Check my CV</a>
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="/"><span>Role</span>proof</a>
+    <nav class="top-links" aria-label="Main">
+      <a href="/audit">Try</a>
+      <a href="/cover-letter">Cover Letter</a>
+      <a href="/mechanics">Mechanics</a>
+      <a href="/certifications" aria-label="Certifications">Cert<span class="long">ification</span>s</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+    <div class="top-end">
+      <a class="btn" href="/contact">Contact Me</a>
+    </div>
+  </div>
 </header>
 
 <main>
-  <section class="wrap hero">
-    <div class="hero-copy">
-      <h1>Know if your CV gets you <span class="swipe">shortlisted</span> before you apply.</h1>
-      <p class="hero-lede">Roleproof reads your CV against the job you want, the way a recruiter would. You see how well you fit, what's missing, and exactly what to change.</p>
-      <div class="hero-actions">
-        <a class="cta" href="/audit">Upload your CV and test it</a>
-        <a class="quiet" href="#solutions">See what you get</a>
-      </div>
-      <p class="hero-note">PDF or Word. No account needed. Report in under a minute.</p>
+  <section class="start blast">
+    <p class="badge focus-in">cv check + cover letters</p>
+    <h1 class="focus-in" style="--d:.12s" aria-label="Your CV got ghosted."><span aria-hidden="true">your cv got</span> <em id="word" aria-hidden="true">ghosted.</em></h1>
+    <p class="start-lede focus-in" style="--d:.3s">find out why before you apply again. see how you fit, what's missing and exactly what to change.</p>
+    <div class="start-actions focus-in" style="--d:.42s">
+      <a class="cta pop" id="upload" href="/audit">check my cv</a>
+      <a class="cta" href="/cover-letter">write a cover letter</a>
+      <a class="cta ghost" id="decoy" href="/audit">apply anyway</a>
     </div>
+    <input type="file" id="file" accept=".pdf,.docx,.txt,.md,.rtf,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+    <p class="start-note focus-in" style="--d:.5s" id="uploadNote" role="status">pdf or word. no signup. nothing saved.</p>
+    <p class="scrollcue" aria-hidden="true">keep scrolling <i></i> it gets better</p>
+  </section>
 
-    <figure class="sheet" aria-label="Example of a marked-up CV with a fit score of 58">
-      <span class="stamp">Example</span>
-      <header class="sheet-head">
-        <div>
-          <strong>Arjun Mehta</strong>
-          <span>Backend Engineer, 5 years</span>
-        </div>
-        <div class="sheet-score" role="img" aria-label="Fit score 58 out of 100">
-          <svg viewBox="0 0 200 112" aria-hidden="true">
-            <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="var(--wash)" stroke-width="18" stroke-linecap="round"/>
-            <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="var(--warn)" stroke-width="18" stroke-linecap="round" stroke-dasharray="145.8 251.3"/>
-          </svg>
-          <b>58</b>
-        </div>
-      </header>
-      <p class="sheet-target">Target role: Senior Machine Learning Engineer</p>
-      <p class="sheet-old">Worked on reconciliation service for UPI payments.</p>
-      <p class="sheet-new">Owned the UPI reconciliation service processing ~4M transactions a day, cutting mismatch time by <mark>[X%]</mark>.</p>
-      <p class="sheet-pen"><b>Missing:</b> PyTorch, MLflow, model monitoring</p>
-      <p class="sheet-pivot"><span>Better fit today</span> Senior Data Engineer <b>88%</b></p>
+
+  <section class="wrap block split">
+    <div class="rise">
+      <span class="tag">x-ray mode</span>
+      <h2>what recruiters wish they could <em>tell you.</em></h2>
+      <p class="block-lede">move over the cv to see the small changes that help. then try yours.</p>
+      <p><a class="cta pop" href="/audit">x-ray my cv</a></p>
+    </div>
+    <figure class="xray rise" id="xray" style="--d:.15s" aria-label="An example CV with a helpful note for each line">
+      <div class="cv">
+        <h3>your name here</h3>
+        <p>your next role</p>
+        <ul>
+          <li><span class="says">Hardworking team player</span><span class="means">a real example would show this.</span></li>
+          <li><span class="says">Passionate about excellence</span><span class="means">one result would say it better.</span></li>
+          <li><span class="says">Proficient in MS Word</span><span class="means">name a tool from the job ad.</span></li>
+          <li><span class="says">Responsible for various tasks</span><span class="means">which ones? we'd love to know.</span></li>
+          <li><span class="says">Fast learner, quick to adapt</span><span class="means">a short story would prove it.</span></li>
+          <li><span class="says">References available on request</span><span class="means">you can safely drop this line.</span></li>
+        </ul>
+      </div>
     </figure>
   </section>
 
-  <section class="wrap solutions" id="solutions">
-    <div class="section-head">
-      <h2>The problems it solves</h2>
-      <p>Most job seekers never find out why their CV didn't work. Roleproof gives you the feedback a recruiter would keep to themselves.</p>
+  <section class="wrap block feedback">
+    <div class="rise">
+      <span class="tag">your choice</span>
+      <h2>how would you like <em>your feedback?</em></h2>
     </div>
-    <ul class="ledger">
-      <li>
-        <p class="problem">"I don't know if I'm good enough for this job."</p>
-        <div><h3>A fit score out of 100</h3><p>Scored on your skills, seniority, domain and measurable results, with a blunt verdict you can act on.</p></div>
-      </li>
-      <li>
-        <p class="problem">"I keep applying and hearing nothing back."</p>
-        <div><h3>Your gaps, ranked</h3><p>See what's holding you back, how serious each gap is, and a concrete way to fix it.</p></div>
-      </li>
-      <li>
-        <p class="problem">"My CV doesn't sound impressive."</p>
-        <div><h3>Rewrites of your own bullet points</h3><p>Stronger wording built from what you've done. Where a number is missing, you get a blank to fill in with the real figure.</p></div>
-      </li>
-      <li>
-        <p class="problem">"Software might be rejecting my CV."</p>
-        <div><h3>Missing keywords</h3><p>The terms this role expects that your CV doesn't mention yet.</p></div>
-      </li>
-      <li>
-        <p class="problem">"I don't know where to apply."</p>
-        <div><h3>Roles to target</h3><p>Five typical openings that suit your profile, each with a fit score and one-click job searches on LinkedIn, Indeed, Naukri and more.</p></div>
-      </li>
-      <li>
-        <p class="problem">"What if I'm aiming at the wrong role?"</p>
-        <div><h3>Pivot roles</h3><p>Five nearby roles you could apply for now, with the headline and search terms to use for each.</p></div>
-      </li>
-    </ul>
-  </section>
-
-  <section class="how" id="how">
-    <div class="wrap">
-      <h2>How it works</h2>
-      <ol class="steps">
-        <li><h3>Add your CV</h3><p>Upload a PDF or Word file, or paste the text.</p></li>
-        <li><h3>Name the job you want</h3><p>Type a job title. Paste a job description for a sharper score.</p></li>
-        <li><h3>Get your report</h3><p>Read it, ask follow-up questions, and download a copy.</p></li>
-      </ol>
-      <a class="cta on-dark" href="/audit">Try it with your CV</a>
+    <div class="feedback-btns rise" id="feedback" role="group" aria-label="Example feedback in each style">
+      <button type="button" aria-pressed="false" data-line="Good start! Name one project and what changed because of you.">gentle</button>
+      <button type="button" aria-pressed="true" data-line="This is a little vague. Name the project, your part and the result.">balanced</button>
+      <button type="button" aria-pressed="false" data-line="Pick one project and say what you did and what changed.">direct</button>
+    </div>
+    <div class="feedback-card rise">
+      <p class="feedback-cv">Worked on various projects.</p>
+      <p id="feedbackLine" aria-live="polite">This is a little vague. Name the project, your part and the result.</p>
     </div>
   </section>
 
-  <section class="wrap privacy" id="privacy">
-    <h2>Your CV stays private</h2>
-    <ul class="facts-row">
-      <li><h3>Not stored</h3><p>We don't save your CV or report. Close the tab and they're gone unless you download a copy.</p></li>
-      <li><h3>Your choice</h3><p>You agree before anything is sent. Your CV text goes to Google's AI to create the report.</p></li>
-      <li><h3>Honest about limits</h3><p>Reports are AI guidance. Check every suggestion, and only claim what's true.</p></li>
-    </ul>
+  <section class="wrap block">
+    <div class="rise">
+      <span class="tag">what's inside</span>
+      <h2>here's what <em>you get.</em></h2>
+    </div>
+    <div class="tiles">
+      <article class="tile span-2 rise">
+        <p class="bignum">58<small>/100</small></p>
+        <div><h3>the score</h3><p>how well you fit this exact job, explained simply.</p></div>
+      </article>
+      <article class="tile span-4 rise" style="--d:.08s">
+        <div class="mini">
+          <s>Worked on reconciliation service.</s>
+          <b>Owned the reconciliation service, cutting mismatch time by <mark>[X%]</mark>.</b>
+        </div>
+        <div><h3>bullet glow-ups</h3><p>your own bullet points, rewritten. no made-up numbers: you get a blank to fill in with the real one.</p></div>
+      </article>
+      <article class="tile span-2 rise">
+        <div class="chips"><span class="chip">add numbers</span><span class="chip">sharpen your summary</span><span class="chip">add key skills</span></div>
+        <div><h3>what to improve</h3><p>every gap, ranked by importance, with a way to fix it.</p></div>
+      </article>
+      <article class="tile span-2 rise" style="--d:.08s">
+        <div class="chips"><span class="chip kw">PyTorch</span><span class="chip kw">MLflow</span><span class="chip kw">A/B testing</span></div>
+        <div><h3>missing keywords</h3><p>the words this job expects that your cv doesn't mention yet.</p></div>
+      </article>
+      <article class="tile span-2 rise" style="--d:.16s">
+        <div class="mini"><span>better fit today</span><b>Senior Data Engineer · 88%</b></div>
+        <div><h3>plan b</h3><p>nearby roles you could apply for now, with the search terms to find them.</p></div>
+      </article>
+      <article class="tile span-3 rise">
+        <div><h3>a cover letter, handled</h3><p>written from your cv for that exact job. read it, fix the blanks, send it.</p></div>
+        <p><a class="cta" href="/cover-letter">write a cover letter</a></p>
+      </article>
+      <article class="tile span-3 rise" style="--d:.08s">
+        <div><h3>which certificate, if any?</h3><p>see which certificates would help with this job. only current ones, checked by hand.</p></div>
+        <p><a class="cta" href="/certifications">check my options</a></p>
+      </article>
+    </div>
   </section>
 
-  <section class="wrap final">
-    <h2>See your CV the way a recruiter does.</h2>
-    <a class="cta" href="/audit">Upload your CV and test it</a>
+  <section class="wrap block last">
+    <h2 class="rise">ready when <em>you are.</em></h2>
+    <a class="cta pop rise" href="/audit">check my cv</a>
   </section>
 </main>
 
 <footer class="foot">
-  <span>© Roleproof. Reports are AI-generated guidance.</span>
-  <a href="/privacy.html">Privacy</a>
-  <a href="/terms.html">Terms</a>
+  <span>© 2026 Roleproof. Reports are AI generated.</span>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
 </footer>
 
+<script src="/read-cv.js"></script>
+<script src="/home.js"></script>
+<script src="/fx.js"></script>
+<script src="/tricks.js"></script>
 </body>
 </html>
