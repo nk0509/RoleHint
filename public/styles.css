@@ -413,3 +413,7 @@ main{ overflow-x: clip; }
 .retired-flag{ display: grid; gap: 6px; padding: 12px 16px; background: var(--warn-wash); border: 1px solid color-mix(in srgb, var(--warn) 35%, transparent); border-radius: var(--radius-sm); font-size: .9rem; }
 .retired-flag p{ margin: 0; }
 .retired-tag{ color: var(--warn); font-family: var(--font-mono); font-size: .72rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+
+/* Video tour on the Mechanics page */
+.tour{ display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; padding-block: 8px 72px; }
+.tour-video{ display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--sheet); box-shadow: 0 24px 60px color-mix(in srgb, var(--pop) 12%, transparent); }

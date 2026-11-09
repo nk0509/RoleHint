@@ -12,7 +12,7 @@ if (existsSync(".env.local")) Object.assign(process.env, parseEnv(readFileSync("
 const root = resolve("public");
 const port = Number(process.env.PORT) || 3000;
 const headers = JSON.parse(readFileSync("vercel.json", "utf8")).headers[0].headers;
-const types = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".mjs": "text/javascript", ".svg": "image/svg+xml" };
+const types = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".mjs": "text/javascript", ".svg": "image/svg+xml", ".mp4": "video/mp4", ".jpg": "image/jpeg", ".png": "image/png" };
 
 createServer(async (req, res) => {
   for (const { key, value } of headers) res.setHeader(key, value);
