@@ -1,5 +1,5 @@
 /* Reads CV files inside the browser and moves the text between pages. Used by the front page, the CV check and the cover letter page. */
-const CV_HANDOFF_KEY = "roleproof-cv";
+const CV_HANDOFF_KEY = "rolehint-cv";
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
 function loadScript(src){

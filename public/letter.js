@@ -75,7 +75,7 @@ $("#copyLetter").onclick = async e => {
 
 $("#saveLetter").onclick = () => {
   const title = document.title;
-  document.title = `Cover letter - ${$("#target").value.trim() || "Roleproof"}`;
+  document.title = `Cover letter - ${$("#target").value.trim() || "RoleHint"}`;
   $("#letterPrint").textContent = letterEl.value;
   window.print();
   document.title = title;

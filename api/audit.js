@@ -1,7 +1,7 @@
-import { errorCode, logUsage, streamReply } from "../lib/gemini.js";
+import { requestAudit } from "../lib/audit.js";
+import { errorCode, logUsage } from "../lib/gemini.js";
 import { clean, json, readBody, reserve, Stop, verifyCaptcha } from "../lib/guard.js";
 import { MOCK_AUDIT, mockEnabled } from "../lib/mock.js";
-import { AUDIT_SCHEMA, AUDIT_SYSTEM, auditMessage } from "../lib/prompts.js";
 import { eventStream } from "../lib/stream.js";
 
 const STRICTNESS = new Set(["supportive", "balanced", "harsh"]);
@@ -45,12 +45,7 @@ export async function POST(request) {
       slot.release();
     });
     try {
-      const reply = await streamReply({
-        system: AUDIT_SYSTEM,
-        input: auditMessage(input),
-        schema: AUDIT_SCHEMA,
-        thinking: "medium",
-        maxTokens: 20_000,
+      const reply = await requestAudit(input, {
         signal: controller.signal,
         onText: (_, chars) => send({ type: "progress", chars }),
       });

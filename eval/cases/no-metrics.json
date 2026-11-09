@@ -1,0 +1,21 @@
+{
+  "id": "no-metrics",
+  "about": "A CV that lists duties but no results. RoleHint should point out the missing results and must not invent numbers in its rewrites.",
+  "input": {
+    "target": "Digital Marketing Specialist",
+    "jobDescription": "Digital Marketing Specialist, Mumbai\n\n- Proven results from campaigns, with metrics to show it\n- SEO and Google Analytics\n- Email marketing\n- Social media advertising",
+    "cv": "Sneha Kulkarni\nMumbai · sneha.kulkarni@example.com\n\nExperience\nMarketing Executive, UrbanNest Interiors, Mumbai (Jul 2023 – Present)\n- Responsible for social media posts on Instagram and Facebook.\n- Worked on email campaigns for new collections.\n- Helped organise launch events.\n- Updated website content and blog posts.\n\nSkills\nInstagram, Facebook Ads, Mailchimp, Canva, WordPress\n\nEducation\nBMS in Marketing, University of Mumbai, 2023"
+  },
+  "expect": {
+    "missing": [
+      [
+        "metric*",
+        "quantif*",
+        "measurable",
+        "numbers",
+        "impact"
+      ]
+    ]
+  },
+  "human": []
+}

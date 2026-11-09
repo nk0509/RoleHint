@@ -1,0 +1,23 @@
+{
+  "id": "career-changer",
+  "about": "A maths teacher moving into data analysis, with no SQL and no Power BI. The score should be modest and both gaps found.",
+  "input": {
+    "target": "Data Analyst",
+    "jobDescription": "Data Analyst, Pune\n\nMust have:\n- SQL, used daily, including complex joins\n- Power BI dashboards\n- Advanced Excel\n- 2+ years in an analytics role\n\nNice to have: Python for data cleaning.",
+    "cv": "Meera Iyer\nChennai · meera.iyer@example.com\n\nExperience\nMathematics Teacher, Sunrise Public School, Chennai (Jun 2020 – Present)\n- Teach mathematics to classes of 40 students in grades 9 and 10.\n- Track marks for 300 students in Excel and share term reports with parents.\n- Coordinate the school's annual maths olympiad.\n\nLearning\n- Completed an online course in Excel for data analysis (2026).\n- Learning Python basics through free online lessons.\n\nEducation\nM.Sc in Mathematics, University of Madras, 2020"
+  },
+  "expect": {
+    "score": {
+      "max": 55
+    },
+    "missing": [
+      [
+        "sql"
+      ],
+      [
+        "power bi"
+      ]
+    ]
+  },
+  "human": []
+}

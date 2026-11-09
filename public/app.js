@@ -179,6 +179,7 @@ document.addEventListener("click", async e => {
 async function askChat(e){
   e.preventDefault();
   const inEl = $("#chatIn"), q = inEl.value.trim(); if (!q || !current) return;
+  if (bot.waiting){ setStatus(errMsg("captcha"), true); return; }
   const msgs = $("#msgs"); msgs.querySelector(".empty")?.remove();
   const u = document.createElement("div"); u.className = "msg u"; u.textContent = q; msgs.append(u);
   const a = document.createElement("div"); a.className = "msg a"; a.textContent = "Thinking…"; msgs.append(a);
@@ -187,13 +188,15 @@ async function askChat(e){
   const audit = JSON.stringify({ score: current.fit.score, verdict: current.fit.verdict, gaps: current.fit.gaps, pivots: list(current.pivots).map(p => p.title) }).slice(0, 8000);
   let text = "";
   try{
-    await callApi("/api/chat", { target: currentInputs.target, cv: currentInputs.cv, audit, turns: chatTurns.slice(-11) }, ev => {
+    await callApi("/api/chat", { target: currentInputs.target, cv: currentInputs.cv, audit, turns: chatTurns.slice(-11), captcha: bot.token }, ev => {
       if (ev.type === "text"){ text += ev.text; a.textContent = text; msgs.scrollTop = msgs.scrollHeight; }
     });
     chatTurns.push({ role: "assistant", content: text });
   }catch(err){
-    a.textContent = errMsg(err?.code);
+    a.textContent = errMsg(err?.code, "questions");
     chatTurns.pop();
+  }finally{
+    bot.reset();
   }
 }
 

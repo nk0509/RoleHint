@@ -1,0 +1,18 @@
+{
+  "id": "seniority-gap",
+  "about": "A developer with one year of experience applying for a staff-level role. The score and the seniority sub-score should both be low.",
+  "input": {
+    "target": "Staff Software Engineer",
+    "jobDescription": "Staff Software Engineer, Hyderabad\n\n- 10+ years building backend systems\n- Led teams of 8 or more engineers\n- Designed distributed systems serving millions of users\n- Mentors senior engineers and sets technical direction\n- Java or Go",
+    "cv": "Rahul Verma\nHyderabad · rahul.verma@example.com\n\nExperience\nSoftware Developer, CodeNest Solutions, Hyderabad (Aug 2025 – Present)\n- Build REST APIs in Java with Spring Boot for an internal HR tool.\n- Write MySQL queries and fix bugs reported by the QA team.\n\nIntern, CodeNest Solutions (Jan 2025 – Jul 2025)\n- Wrote unit tests in JUnit.\n\nSkills\nJava, Spring Boot, MySQL, Git\n\nEducation\nB.Tech in Information Technology, JNTU Hyderabad, 2025"
+  },
+  "expect": {
+    "score": {
+      "max": 45
+    },
+    "breakdownMax": {
+      "seniority": 40
+    }
+  },
+  "human": []
+}

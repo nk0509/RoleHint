@@ -1,0 +1,29 @@
+{
+  "id": "synonym-k8s",
+  "about": "The CV says K8s and EKS but never the word Kubernetes. A good reviewer knows these mean Kubernetes, so it may suggest adding the keyword but must not call it a missing skill.",
+  "input": {
+    "target": "Machine Learning Engineer",
+    "jobDescription": "Machine Learning Engineer, Bengaluru\n\nWe're looking for an engineer with 2+ years of experience building and deploying machine learning models.\n\nRequirements:\n- Strong Python\n- PyTorch\n- Deploying models with Docker and Kubernetes\n- AWS (SageMaker or EKS)\n- Experiment tracking with MLflow\n- SQL\n\nNice to have: feature stores, model monitoring.",
+    "cv": "Priya Raman\nBengaluru · priya.raman@example.com\n\nSummary\nMachine learning engineer with 3 years of experience training and deploying models for an e-commerce platform.\n\nExperience\nMachine Learning Engineer, ShopKart, Bengaluru (Jun 2023 – Present)\n- Built a product recommendation model in PyTorch that raised click-through rate by 12%.\n- Deployed models as Docker containers on K8s (Amazon EKS), serving 3,000 requests a second.\n- Tracked 200+ experiments in MLflow and set up weekly model monitoring dashboards.\n- Wrote SQL pipelines in Amazon Redshift to build training data.\n\nData Scientist, Finlytics, Chennai (Jul 2022 – May 2023)\n- Trained scikit-learn fraud models on 5 million transactions, cutting false positives by 18%.\n\nSkills\nPython, PyTorch, scikit-learn, Docker, K8s (EKS), AWS SageMaker, MLflow, SQL, Git\n\nEducation\nB.Tech in Computer Science, Anna University, 2022"
+  },
+  "expect": {
+    "score": {
+      "min": 65
+    },
+    "notAGap": [
+      [
+        "kubernetes",
+        "k8s"
+      ]
+    ],
+    "notMissing": [
+      [
+        "python"
+      ],
+      [
+        "pytorch"
+      ]
+    ]
+  },
+  "human": []
+}

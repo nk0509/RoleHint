@@ -327,3 +327,24 @@ test("the certificate list is complete and has nothing retired in it", () => {
     assert.ok(match.every((name) => name === name.toLowerCase()), replacedBy);
   }
 });
+
+test("site-wide limits default to a small daily AI bill", async () => {
+  const { limits } = await import("../lib/guard.js");
+  const all = limits();
+  assert.deepEqual([all.audit.total, all.letter.total, all.cert.total, all.chat.total], [15, 15, 15, 50]);
+});
+
+test("with the bot check on, every AI route needs it before any AI call", async () => {
+  process.env.TURNSTILE_SECRET_KEY = "test-secret";
+  try {
+    const chatBody = { target: "Engineer", cv: SECRET_CV, audit: "{}", turns: [{ role: "user", content: "What first?" }] };
+    for (const [handler, body] of [[audit.POST, input()], [chat.POST, chatBody], [letter.POST, letterInput()], [certs.POST, certInput()]]) {
+      const response = await call(handler, body);
+      assert.equal(response.status, 400);
+      assert.deepEqual(await response.json(), { code: "captcha" });
+    }
+    assert.equal(requests.length, 0);
+  } finally {
+    delete process.env.TURNSTILE_SECRET_KEY;
+  }
+});

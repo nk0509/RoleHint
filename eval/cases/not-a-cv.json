@@ -1,0 +1,15 @@
+{
+  "id": "not-a-cv",
+  "about": "A recipe pasted instead of a CV. RoleHint's rules say to say so and score it 0.",
+  "input": {
+    "target": "Product Manager",
+    "jobDescription": "Product Manager, Bengaluru\n\n- 3+ years managing software products\n- Writing product requirements\n- Working with engineering and design teams",
+    "cv": "Masala Chai\n\nIngredients\n- 2 cups water\n- 1 cup milk\n- 2 teaspoons black tea leaves\n- 4 green cardamom pods, crushed\n- 1 small piece of ginger, grated\n- 2 teaspoons sugar\n\nMethod\nBoil the water with the cardamom and ginger for 2 minutes. Add the tea leaves and simmer for 1 minute. Add the milk and sugar, bring back to the boil, then strain into cups and serve hot."
+  },
+  "expect": {
+    "score": {
+      "max": 5
+    }
+  },
+  "human": []
+}

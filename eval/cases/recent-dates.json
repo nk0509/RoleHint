@@ -1,0 +1,18 @@
+{
+  "id": "recent-dates",
+  "about": "A CV whose dates run up to the last few months. RoleHint must treat them as past, not complain about future dates.",
+  "input": {
+    "target": "Senior Backend Engineer",
+    "jobDescription": "Senior Backend Engineer, Bengaluru\n\n- 5+ years building backend services\n- Python or Go\n- PostgreSQL\n- Cloud deployment on AWS or GCP",
+    "cv": "Vikram Nair\nBengaluru · vikram.nair@example.com\n\nExperience\nSenior Software Engineer, CloudKart, Bengaluru (Oct 2026 – Present)\n- Lead the payments API team of 4 engineers, building services in Go on AWS.\n\nSoftware Engineer, DataWeave Labs, Mysuru (Aug 2021 – Sep 2026)\n- Built Python services on PostgreSQL handling 2 million orders a month.\n- Moved 12 services from virtual machines to Kubernetes on GCP.\n\nSkills\nGo, Python, PostgreSQL, AWS, GCP, Kubernetes, Docker\n\nEducation\nB.E. in Computer Science, NIT Karnataka, 2021"
+  },
+  "expect": {
+    "forbidden": [
+      "future date",
+      "future-dated",
+      "dates in the future",
+      "in the future"
+    ]
+  },
+  "human": []
+}

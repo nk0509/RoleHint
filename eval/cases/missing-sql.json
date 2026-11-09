@@ -1,0 +1,25 @@
+{
+  "id": "missing-sql",
+  "about": "An experienced analyst with Excel and Power BI but no SQL, for a job that needs SQL every day.",
+  "input": {
+    "target": "Data Analyst",
+    "jobDescription": "Data Analyst, Pune\n\nMust have:\n- SQL, used daily, including complex joins\n- Power BI dashboards\n- Advanced Excel\n- 2+ years in an analytics role\n\nNice to have: Python for data cleaning.",
+    "cv": "Arun Das\nPune · arun.das@example.com\n\nExperience\nData Analyst, FreshMart Retail, Pune (Mar 2024 – Present)\n- Built Power BI dashboards tracking weekly sales for 40 stores.\n- Cut weekly reporting time from 6 hours to 1 hour with Excel macros and pivot tables.\n- Cleaned supplier data with Python (pandas) before monthly reviews.\n\nJunior Analyst, FreshMart Retail, Pune (Jun 2022 – Feb 2024)\n- Maintained Excel models for stock levels across 25 stores.\n\nSkills\nExcel (pivot tables, VLOOKUP, macros), Power BI, Python (pandas)\n\nEducation\nB.Com, Savitribai Phule Pune University, 2022"
+  },
+  "expect": {
+    "missing": [
+      [
+        "sql"
+      ]
+    ],
+    "notMissing": [
+      [
+        "power bi"
+      ],
+      [
+        "excel"
+      ]
+    ]
+  },
+  "human": []
+}

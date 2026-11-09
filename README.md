@@ -1,6 +1,6 @@
-# Roleproof
+# RoleHint
 
-A public website that audits any CV against a target role, with a fit score, gaps, bullet rewrites, market roles and pivot roles, and writes a cover letter for the job. Roleproof is a working name. To change it, find and replace it in `public/`.
+A public website that audits any CV against a target role, with a fit score, gaps, bullet rewrites, market roles and pivot roles, and writes a cover letter for the job. RoleHint was called Roleproof until November 2026. To rename it, find and replace the name across `public/`, and change the logo, which every page header writes as `<span>Role</span>hint`.
 
 ## How it fits together
 
@@ -49,10 +49,14 @@ If `public/vendor` is ever missing, run `npm run vendor` to restore the PDF and 
 5. **Vercel:** sign in with GitHub, click Add New, then Project, and import the repository. Keep the default settings.
 6. **Redis:** in Vercel, open the project's Storage tab, create a free Upstash for Redis database and connect it to the project. This adds `KV_REST_API_URL` and `KV_REST_API_TOKEN` for you. The live site refuses all audits until this is connected, which stops a missing limit from costing you money.
 7. **Settings:** in Vercel under Settings, then Environment Variables, add `GEMINI_API_KEY`. The limit numbers from `.env.example` are optional, and the same values are used if you leave them out. Redeploy after any change here.
-8. **Bot check (recommended):** create a free Cloudflare Turnstile widget and add `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`.
+8. **Bot check (recommended):** create a free Cloudflare Turnstile widget and add `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`. It then guards CV checks, follow-up questions, cover letters and certificate checks.
 9. **Legal pages:** read `public/privacy.html` and `public/terms.html`, and have them reviewed.
 10. **Domain:** buy your domain and add it in Vercel under Settings, then Domains.
 11. **Final check:** run a full audit on the live site, on a phone too, and check that the limit message appears.
+
+## Measuring quality
+
+`eval/` checks how good the CV check really is. It runs the same code as the live site on test cases with known answers, compares it with a plain AI prompt, and writes a shareable report. Run `npm run eval -- --mock` for a free practice run, or `npm run eval -- --baseline` for the real thing, which asks before spending credit. See `eval/README.md` for what it measures and how to add cases.
 
 ## Keeping the certificate list current
 
@@ -60,7 +64,7 @@ If `public/vendor` is ever missing, run `npm run vendor` to restore the PDF and 
 
 ## Controlling cost
 
-`AUDITS_PER_DAY_TOTAL`, `LETTERS_PER_DAY_TOTAL`, `CERT_CHECKS_PER_DAY_TOTAL` and `CHATS_PER_DAY_TOTAL` cap daily use across all visitors. Set `GEMINI_MODEL=gemini-3.1-flash-lite` in Vercel to run on a cheaper model, and compare report quality before you keep it.
+`AUDITS_PER_DAY_TOTAL`, `LETTERS_PER_DAY_TOTAL`, `CERT_CHECKS_PER_DAY_TOTAL` and `CHATS_PER_DAY_TOTAL` cap daily use across all visitors. Unless you set them, the site allows 15 CV checks, 15 cover letters, 15 certificate checks and 50 follow-up questions a day, which keeps a worst day's AI bill to roughly ₹60 at late-2026 prices. Raise them when you have more credit. The counts reset at midnight UTC, which is 5:30 am in India. Set `GEMINI_MODEL=gemini-3.1-flash-lite` in Vercel to run on a cheaper model, and compare report quality before you keep it.
 
 Vercel's time limit for each request depends on your plan. `vercel.json` asks for up to 300 seconds.
 

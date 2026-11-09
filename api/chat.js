@@ -1,5 +1,5 @@
 import { errorCode, logUsage, streamReply } from "../lib/gemini.js";
-import { clean, json, readBody, reserve, Stop } from "../lib/guard.js";
+import { clean, json, readBody, reserve, Stop, verifyCaptcha } from "../lib/guard.js";
 import { mockEnabled } from "../lib/mock.js";
 import { chatMessage, chatSystem } from "../lib/prompts.js";
 import { eventStream } from "../lib/stream.js";
@@ -25,7 +25,9 @@ function parseInput(body) {
 export async function POST(request) {
   let input, slot;
   try {
-    input = parseInput(await readBody(request));
+    const body = await readBody(request);
+    input = parseInput(body);
+    await verifyCaptcha(body.captcha, request);
     slot = await reserve(request, "chat");
   } catch (error) {
     if (error instanceof Stop) return json(error.status, { code: error.code });
